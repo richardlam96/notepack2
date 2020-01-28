@@ -5,28 +5,39 @@ Initialize any files and folders that are required for the app to work
 properly.
 """
 import os
+from notepack import config
 
 
 def initialize_app():
     """Check for required app files and initialize if needed."""
-    if not path_exists("./tickets"):
-        print("Initial files and folders not found.")
-        action = input("Create? (Y/n): ")
-        if action == 'n':
-            print("WARNING: tickets/ path was not created!")
-            return
-        os.mkdir("./tickets")
-
-    print(os.listdir("./tickets"))
+    confirm_required_folders()
+    confirm_required_files()
+    return
 
 
 def confirm_required_folders():
     """Create top-level folders if needed."""
+    print("Checking required folders...")
+    
+    for name, path in config.DEFAULT_FOLDERS.items():
+        if path_exists(path):
+            print(f"\t{name} folder exists.")
+        else:
+            print(f"\t{name} folder MISSING.")
+
     return
 
 
 def confirm_required_files():
     """Ask to create required files if needed."""
+    print("Checking required templates...")
+
+    for name, path in config.DEFAULT_FILES.items():
+        if path_exists(path):
+            print(f"\t{name} file found.")
+        else: 
+            print(f"\t{name} file MISSING.")
+
     return
 
 
