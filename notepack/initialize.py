@@ -14,10 +14,20 @@ def initialize_app():
         action = input("Create? (Y/n): ")
         if action == 'n':
             print("WARNING: tickets/ path was not created!")
+            return
         os.mkdir("./tickets")
-        print("tickets/ folder made")
 
     print(os.listdir("./tickets"))
+
+
+def confirm_required_folders():
+    """Create top-level folders if needed."""
+    return
+
+
+def confirm_required_files():
+    """Ask to create required files if needed."""
+    return
 
 
 def path_exists(path):

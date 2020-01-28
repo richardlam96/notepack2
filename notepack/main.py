@@ -2,12 +2,12 @@
 Entry point for the Notepack app.
 
 """
-from . import initialize
-from . import output
+from notepack.initialize import initialize_app
+from notepack.output import show_welcome_message
 
 
 def notepack():
-    output.show_welcome_message()
-    initialize.initialize_app()
+    show_welcome_message()
+    initialize_app()
 
 
