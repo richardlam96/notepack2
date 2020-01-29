@@ -4,8 +4,8 @@ Initialize Functions
 Initialize any files and folders that are required for the app to work
 properly.
 """
-import os
 from notepack import config
+from notepack import utility
 
 
 def initialize_app():
@@ -18,31 +18,15 @@ def initialize_app():
 def confirm_required_folders():
     """Create top-level folders if needed."""
     print("Checking required folders...")
-    
-    for name, path in config.DEFAULT_FOLDERS.items():
-        if path_exists(path):
-            print(f"\t{name} folder exists.")
-        else:
-            print(f"\t{name} folder MISSING.")
-
+    utility.paths_in_dictionary_exists(config.DEFAULT_FOLDERS)
     return
 
 
 def confirm_required_files():
     """Ask to create required files if needed."""
     print("Checking required templates...")
-
-    for name, path in config.DEFAULT_FILES.items():
-        if path_exists(path):
-            print(f"\t{name} file found.")
-        else: 
-            print(f"\t{name} file MISSING.")
-
+    utility.paths_in_dictionary_exists(config.DEFAULT_FILES)
     return
 
-
-def path_exists(path):
-    """Check if the given path exists."""
-    return os.path.exists(path)
 
 

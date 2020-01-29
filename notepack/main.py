@@ -2,12 +2,34 @@
 Entry point for the Notepack app.
 
 """
+from notepack import config
+from notepack import output
+from notepack import utility
 from notepack.initialize import initialize_app
-from notepack.output import show_welcome_message
 
 
 def notepack():
-    show_welcome_message()
+    output.show_welcome_message()
     initialize_app()
+
+    print("Categories:")
+    show_categories()
+
+
+def show_categories():
+    utility.list_path(config.DEFAULT_FOLDERS["tickets"])
+    return
+
+
+def create_category():
+    return
+
+
+def show_notepacks():
+    return
+
+
+def create_notepack():
+    return
 
 
