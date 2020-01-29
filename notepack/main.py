@@ -21,15 +21,17 @@ def show_categories():
     return
 
 
-def create_category():
+def create_category(name):
     return
 
 
-def show_notepacks():
+def show_notepacks(category_name):
+    category_path = f"{config.DEFAULT_FOLDERS['tickets']}/{category_name}"
+    utility.list_path(category_path)
     return
 
 
-def create_notepack():
+def create_notepack(name):
     return
 
 
