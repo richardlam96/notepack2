@@ -19,13 +19,13 @@ def notepack():
 
 def open_notepack(category, notepack):
     create_category(category)
-    create_notepack(notepack)
+    create_notepack(category, notepack)
     return
 
 
 def create_category(category):
     print("Category")
-    category_path = get_category_path(category)
+    category_path = utility.get_category_path(category)
     if utility.path_exists(category_path):
         print(f"  {category} already exists")
     else:
@@ -35,7 +35,7 @@ def create_category(category):
 
 def create_notepack(category, notepack):
     print("Notepack")
-    notepack_path = get_notepack_path(category, notepack)
+    notepack_path = utility.get_notepack_path(category, notepack)
     if utility.path_exists(notepack_path):
         print(f"  {notepack} already exists in {category}")
     else:
