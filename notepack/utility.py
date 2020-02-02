@@ -16,6 +16,12 @@ def get_category_path(category_name):
     return f"{config.DEFAULT_FOLDERS['tickets']}/{category_name}"
 
 
+def list_categories():
+    """List categories in the path from config."""
+    list_path(config.DEFAULT_FOLDERS['tickets'])
+    return
+
+
 def paths_in_dictionary_exists(dictionary):
     """Check if all paths in a dictionary exist."""
     for name, path in dictionary.items():

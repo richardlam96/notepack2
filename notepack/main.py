@@ -5,6 +5,7 @@ Entry point for the Notepack app.
 from notepack import output
 from notepack import utility
 from notepack.initialize import initialize_app
+from pathlib import Path
 
 
 def notepack():
@@ -18,28 +19,39 @@ def notepack():
 
 
 def open_notepack(category, notepack):
-    create_category(category)
     create_notepack(category, notepack)
-    return
-
-
-def create_category(category):
-    print("Category")
-    category_path = utility.get_category_path(category)
-    if utility.path_exists(category_path):
-        print(f"  {category} already exists")
-    else:
-        print(f"  Creating {category}")
     return
 
 
 def create_notepack(category, notepack):
     print("Notepack")
-    notepack_path = utility.get_notepack_path(category, notepack)
-    if utility.path_exists(notepack_path):
-        print(f"  {notepack} already exists in {category}")
-    else:
-        print(f"  Creating {notepack} in {category}")
+    notepack_path = Path(utility.get_notepack_path(category, notepack))
+    while True:
+        try:
+            print(f"Creating {notepack}...")
+            notepack_path.mkdir()
+            print(f"{notepack} created!")
+            break
+        except FileNotFoundError:
+            print(f"  {category} does not exist yet.")
+            create_category(category)
+        except FileExistsError:
+            print(f"  {notepack} already exists in {category}")
+            print("  Open for editing?")
+            # Open notepack for viewing.
+            break
+    return
+
+
+def create_category(category):
+    print("Category")
+    category_path = Path(utility.get_category_path(category))
+    try:
+        print(f"  Creating {category}...")
+        category_path.mkdir()
+        print(f"  {category} created!")
+    except FileExistsError:
+        print(f"  {category} already exists.")
     return
 
 
