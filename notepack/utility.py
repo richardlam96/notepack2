@@ -1,8 +1,18 @@
 """
 Utility functions
 """
-import os
+from pathlib import Path
 from notepack import config
+
+
+def list_categories():
+    """List categories in the path from config."""
+    return list_path(config.DEFAULT_FOLDERS['tickets'])
+
+
+def list_notepacks(category):
+    """List notepacks existing in given category."""
+    return list_path(get_category_path(category))
 
 
 def get_notepack_path(category_name, notepack_name):
@@ -14,12 +24,6 @@ def get_notepack_path(category_name, notepack_name):
 def get_category_path(category_name):
     """Build path for a category."""
     return f"{config.DEFAULT_FOLDERS['tickets']}/{category_name}"
-
-
-def list_categories():
-    """List categories in the path from config."""
-    list_path(config.DEFAULT_FOLDERS['tickets'])
-    return
 
 
 def paths_in_dictionary_exists(dictionary):
@@ -34,11 +38,12 @@ def paths_in_dictionary_exists(dictionary):
 
 def path_exists(path):
     """Check if the given path exists."""
-    return os.path.exists(path)
+    return Path(path).exists()
 
 
 def list_path(path):
     """List items in a given path."""
-    return os.listdir(path)
+    posix_path = Path(path)
+    return [path.name for path in posix_path.glob('*')]
 
 

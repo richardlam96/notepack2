@@ -3,63 +3,40 @@ Entry point for the Notepack app.
 
 """
 from notepack import output
+from notepack import actions
 from notepack import utility
 from notepack.initialize import initialize_app
-from pathlib import Path
 
 
 def notepack():
     output.show_welcome_message()
-    initialize_app()
+    initialize_app()  # Not the most necessary. Add as action.
 
-    category = input("Category name: ")
-    notepack = input("Notepack name: ")
-    open_notepack(category, notepack)
+    actions = ["create", "open", "delete"]
+
+    print("What would you like to do?")
+    command = input("> ").split()
+    action = confirm_choice(command[0], actions)
+    category = confirm_choice(command[1], utility.list_categories())
+    notepack = confirm_choice(command[2], utility.list_notepacks())
     return
 
 
-def open_notepack(category, notepack):
-    create_notepack(category, notepack)
-    return
+def confirm_choice(choice, choice_list):
+    if choice not in choice_list:
+        choice = pick_from_list(choice_list)
+    return choice
 
 
-def create_notepack(category, notepack):
-    print("Notepack")
-    notepack_path = Path(utility.get_notepack_path(category, notepack))
+def pick_from_list(items, prompt="notepack> "):
     while True:
-        try:
-            print(f"Creating {notepack}...")
-            notepack_path.mkdir()
-            print(f"{notepack} created!")
+        requested_item = input(prompt)
+        if requested_item in items:
             break
-        except FileNotFoundError:
-            print(f"  {category} does not exist yet.")
-            create_category(category)
-        except FileExistsError:
-            print(f"  {notepack} already exists in {category}")
-            print("  Open for editing?")
-            # Open notepack for viewing.
-            break
-    return
+        else:
+            print(f"'{requested_item}' is not available.")
+            print(f"Try one of these: {items}")
 
-
-def create_category(category):
-    print("Category")
-    category_path = Path(utility.get_category_path(category))
-    try:
-        print(f"  Creating {category}...")
-        category_path.mkdir()
-        print(f"  {category} created!")
-    except FileExistsError:
-        print(f"  {category} already exists.")
-    return
-
-
-def show_categories():
-    return
-
-
-def show_notepacks(category_name):
-    return
+    return requested_item
 
 
