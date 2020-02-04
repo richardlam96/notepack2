@@ -12,7 +12,7 @@ def open_notepack(category, notepack):
 
 
 def create_notepack(category, notepack):
-    notepack_path = Path(utility.get_notepack_path(category, notepack))
+    notepack_path = utility.get_notepack_path(category, notepack)
     while True:
         try:
             print(f"Creating {notepack}...")

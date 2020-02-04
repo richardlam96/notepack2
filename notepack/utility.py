@@ -18,12 +18,12 @@ def list_notepacks(category):
 def get_notepack_path(category_name, notepack_name):
     """Build path for a notepack."""
     category_path = get_category_path(category_name)
-    return f"{category_path}/{notepack_name}"
+    return Path(f"{category_path}/{notepack_name}")
 
 
 def get_category_path(category_name):
     """Build path for a category."""
-    return f"{config.DEFAULT_FOLDERS['tickets']}/{category_name}"
+    return Path(f"{config.DEFAULT_FOLDERS['tickets']}/{category_name}")
 
 
 def paths_in_dictionary_exists(dictionary):
