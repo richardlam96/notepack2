@@ -5,14 +5,9 @@ from pathlib import Path
 from notepack import config
 
 
-def list_categories():
-    """List categories in the path from config."""
-    return list_path(config.DEFAULT_FOLDERS['tickets'])
-
-
 def list_notepacks(category):
     """List notepacks existing in given category."""
-    return list_path(get_category_path(category))
+    return get_path_items(get_category_path(category))
 
 
 def get_notepack_path(category_name, notepack_name):
@@ -41,7 +36,7 @@ def path_exists(path):
     return Path(path).exists()
 
 
-def list_path(path):
+def get_path_items(path):
     """List items in a given path."""
     posix_path = Path(path)
     return [path.name for path in posix_path.glob('*')]

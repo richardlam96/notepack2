@@ -6,7 +6,7 @@ Functions to aid in outputting messages to the console in specified format.
 from datetime import datetime
 
 
-def show_welcome_message():
+def print_welcome_message():
     """Print a welcome message to the output."""
     now = datetime.now()
 

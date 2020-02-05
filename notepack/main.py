@@ -5,11 +5,11 @@ Entry point for the Notepack app.
 from notepack import output
 from notepack import utility
 from notepack import initialize
-from notepack.actions import actions
+from notepack.actions import category
 
 
 def notepack():
-    output.show_welcome_message()
+    output.print_welcome_message()
     initialize.confirm_required_folders()
     initialize.confirm_required_files()
 
@@ -19,9 +19,11 @@ def notepack():
     print("What would you like to do?")
     while True:
         command = input("> ").split()
+        if not command: continue
+        if command[0] == 'quit': break
+
         # Process commands.
-        if command[0] == 'quit':
-            break
+        category.list_categories()
     return
 
 
