@@ -19,11 +19,12 @@ def notepack():
     print("What would you like to do?")
     while True:
         command = input("> ").split()
+        action = command[0]
+        entity = command[1]
         if not command: continue
-        if command[0] == 'quit': break
+        if action == 'quit': break
 
-        # Process commands.
-        category.list_categories()
+        # Validate availability of action and entity.
     return
 
 

@@ -10,6 +10,14 @@ from notepack import config
 from notepack import utility
 
 
+category_actions = {
+    "create": create_category,
+    "list": list_categories,
+    "use": use_category,
+    "delete": delete_category,
+}
+
+
 def create_category(category):
     print("Category")
     category_path = Path(utility.get_category_path(category))
