@@ -1,5 +1,5 @@
 """
-CRUD Actions for notepacks.
+Actions for notepacks: Create, List, Open, Use?, Delete.
 """
 from pathlib import Path
 from notepack import utility

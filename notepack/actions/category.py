@@ -1,5 +1,5 @@
 """
-CRUD actions for the category entity.
+Actions for the category entity: Create, List, Use, Delete.
 
 NOTE: These are probably going to be very similar to notepack actions since
 later, the idea is that categories will also be notepacks, just parent

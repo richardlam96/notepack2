@@ -17,8 +17,11 @@ def notepack():
 
     # Start of the notepack "terminal".
     print("What would you like to do?")
-    command = input("> ").split()
-
+    while True:
+        command = input("> ").split()
+        # Process commands.
+        if command[0] == 'quit':
+            break
     return
 
 
