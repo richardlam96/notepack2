@@ -12,6 +12,7 @@ from notepack import output
 
 
 def create_category(category):
+    # Return Path with this?
     print("Category")
     category_path = Path(utility.get_category_path(category))
     try:

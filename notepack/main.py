@@ -35,30 +35,36 @@ def enter_search_console():
         if not command: continue
         if command[0] == 'quit': break
 
-        category = confirm_category_console(command[0])
-        notepack = confirm_notepack_console(category, command[1])
+        category_name = confirm_category_console(command[0])
+        notepack = confirm_notepack_console(category_name, command[1])
 
-        print(f"Opening {notepack} in {category}")
+        print(f"Opening {notepack} in {category_name}")
     return
 
 
-def confirm_category_console(category):
-    while not category in utility.get_categories():
-        print(f"'{category}' not found.")
+def confirm_category_console(category_name):
+    while not category_name in utility.get_categories():
+        print(f"'{category_name}' not found.")
         print("Choose an existing category or create 'new':")
         output.print_categories()
-        new_category = input("category or 'new'> ")
-        if new_category == 'new': break # Create the category.
-    return category
+        new_category_name = input("category or 'new'> ")
+        if new_category_name == 'new': 
+            category.create_category(category_name)
+            category_name = new_category_name
+            break 
+    return category_name
 
 
-def confirm_notepack_console(category, notepack):
-    while not notepack in utility.get_notepacks(category):
+def confirm_notepack_console(category_name, notepack):
+    while not notepack in utility.get_notepacks(category_name):
         print(f"'{notepack}' NOT found!")
         print("Choose an existing notepack or creaste 'new':")
-        output.print_notepacks(category)
-        new_notepack = input("notepack or 'new'> ")
-        if new_notepack == 'new': break # Create the notepack.
+        output.print_notepacks(category_name)
+        new_notepack = input(f"{category_name}>notepack or 'new'> ")
+        if new_notepack == 'new': 
+            print(f"Creating new notepack called '{notepack}'...")
+            notepack = new_notepack
+            break
     return notepack
 
 
