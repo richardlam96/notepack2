@@ -43,7 +43,13 @@ def enter_search_console():
             print(f"'{category}' found!")
         else:
             print(f"'{category}' NOT found!")
+            # Re-enter or create new.
 
+        if notepack in utility.get_notepacks(category):
+            print(f"'{notepack}' found!")
+        else:
+            print(f"'{notepack}' NOT found!")
+            # Re-enter or create new.
 
     return
 
