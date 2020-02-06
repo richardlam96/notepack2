@@ -13,18 +13,38 @@ def notepack():
     initialize.confirm_required_folders()
     initialize.confirm_required_files()
 
-    actions = ["create", "open", "delete"]
-
     # Start of the notepack "terminal".
     print("What would you like to do?")
     while True:
+        # Validate there is input.
         command = input("> ").split()
-        action = command[0]
-        entity = command[1]
         if not command: continue
-        if action == 'quit': break
 
-        # Validate availability of action and entity.
+        action = command[0]
+        if action == 'quit': break
+        if action == 'search': enter_search_console()
+
+        continue
+    return
+
+
+def enter_search_console():
+    print("Search Console")
+    while True:
+        command = input("search> ").split()
+        if not command: continue
+
+        category = command[0]
+        if category == 'quit': break
+
+        notepack = command[1]
+
+        if category in utility.get_categories():
+            print(f"'{category}' found!")
+        else:
+            print(f"'{category}' NOT found!")
+
+
     return
 
 
