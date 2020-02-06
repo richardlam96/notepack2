@@ -33,25 +33,33 @@ def enter_search_console():
     while True:
         command = input("search> ").split()
         if not command: continue
+        if command[0] == 'quit': break
 
-        category = command[0]
-        if category == 'quit': break
+        category = confirm_category_console(command[0])
+        notepack = confirm_notepack_console(category, command[1])
 
-        notepack = command[1]
-
-        if category in utility.get_categories():
-            print(f"'{category}' found!")
-        else:
-            print(f"'{category}' NOT found!")
-            # Re-enter or create new.
-
-        if notepack in utility.get_notepacks(category):
-            print(f"'{notepack}' found!")
-        else:
-            print(f"'{notepack}' NOT found!")
-            # Re-enter or create new.
-
+        print(f"Opening {notepack} in {category}")
     return
+
+
+def confirm_category_console(category):
+    while not category in utility.get_categories():
+        print(f"'{category}' not found.")
+        print("Choose an existing category or create 'new':")
+        output.print_categories()
+        new_category = input("category or 'new'> ")
+        if new_category == 'new': break # Create the category.
+    return category
+
+
+def confirm_notepack_console(category, notepack):
+    while not notepack in utility.get_notepacks(category):
+        print(f"'{notepack}' NOT found!")
+        print("Choose an existing notepack or creaste 'new':")
+        output.print_notepacks(category)
+        new_notepack = input("notepack or 'new'> ")
+        if new_notepack == 'new': break # Create the notepack.
+    return notepack
 
 
 def pick_from_list(items, prompt="notepack> "):
