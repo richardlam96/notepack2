@@ -42,7 +42,10 @@ def enter_search_console():
         if not command: continue
         if command[0] == 'quit': break
 
-        category_name = confirm_category_console(command[0])
+        category_path = create_path_console(command[0],
+                utility.get_category_path,
+                output.print_categories,
+                category.create_category)
         notepack = confirm_notepack_console(category_name, command[1])
 
         print(f"Opening {notepack} in {category_name}")
@@ -59,11 +62,13 @@ def confirm_category_console(category_name):
         new_category_name = input("category or 'new'> ")
 
         if new_category_name == 'new': 
-            category.create_category(category_path)
-            break 
-        category_name = new_category_name
+            return category.create_category(category_path)
+        elif new_category_name == 'quit':
+            break
+        else:
+            category_name = new_category_name
 
-    return category_path
+    return
 
 
 def confirm_notepack_console(category_name, notepack):
@@ -78,6 +83,27 @@ def confirm_notepack_console(category_name, notepack):
             notepack = new_notepack
             break
     return notepack
+
+
+def create_path_console(path_name, get_path_func, 
+        get_options_func, 
+        create_path_func):
+    """General sub-console for searching and creating entities"""
+    while True:
+        requested_path = get_path_func(path_name)
+        print(f"'{requested_path.name}' does not exist.")
+        print("Choose existing or create 'new':")
+        get_options_func()
+        new_path_name = input("existing or 'new'> ")
+
+        if new_path_name == 'new':
+            return create_path_func(new_path_name)
+        elif new_path_name == 'quit':
+            break
+        else
+            path_name = new_path_name
+
+    return
 
 
 def pick_from_list(items, prompt="> "):
