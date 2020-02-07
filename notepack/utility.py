@@ -26,6 +26,10 @@ def get_category_path(category_name):
     return Path(f"{config.DEFAULT_FOLDERS['tickets']}/{category_name}")
 
 
+def get_root_path():
+    return Path(f"{config.DEFAULT_FOLDERS['tickets']}")
+
+
 def paths_in_dictionary_exists(dictionary):
     """Check if all paths in a dictionary exist."""
     for name, path in dictionary.items():
@@ -47,3 +51,7 @@ def get_path_items(path):
     return [path.name for path in posix_path.glob('*')]
 
 
+
+def create_path(path):
+    path.mkdir()
+    return

@@ -41,54 +41,37 @@ def enter_search_console():
         command = input("search> ").split()
         if not command: continue
         if command[0] == 'quit': break
+        
+        # Breakdown of command (for clarity).
+        category_name = command[0]
+        notepack_name = command[1]
+        category_path = utility.get_root_path().joinpath(category_name)
+        notepack_path = category_path.joinpath(notepack_name)
 
-        category_path = create_path_console(
-                command[0],
-                utility.get_category_path,
-                output.print_categories,
-                category.create_category)
+        # Confirm if you need to create the category and notepack paths.
+        category_path = confirm_path_console(category_path)
+        notepack_path = confirm_path_console(notepack_path)
 
-        notepack_path = create_path_console(
-            f"{category_path.name}/{command[1]}",
-            utility.get_notepack_path,
-            output.print_notepacks,  # should be simpler, print items in path
-            categroy.create_notepack)
+        # Create any missing files and paths for the notepack.
 
-        # print(f"Opening {notepack} in {category_name}")
     return
 
 
-def confirm_notepack_console(category_name, notepack):
-    """Sub-console to confirm existing or create a new notepack"""
-    while not notepack in utility.get_notepacks(category_name):
-        print(f"'{notepack}' NOT found!")
-        print("Choose an existing notepack or creaste 'new':")
-        output.print_notepacks(category_name)
-        new_notepack = input(f"{category_name}>notepack or 'new'> ")
-        if new_notepack == 'new': 
-            print(f"Creating new notepack called '{notepack}'...")
-            notepack = new_notepack
-            break
-    return notepack
-
-
-def create_path_console(path_name, get_path_func, 
-        get_options_func, 
-        create_path_func):
+def confirm_path_console(requested_path):
     """General sub-console for searching and creating entities"""
-    requested_path = get_path_func(path_name)
     while not requested_path.exists():
+        # List items in the parent folder to re-choose child.
         print(f"'{requested_path.name}' does not exist.")
         print("Choose existing or create 'new':")
-        get_options_func()
+        '\n'.join(utility.get_path_items(requested_path.parent))
         new_path_name = input("existing or 'new'> ")
 
         if new_path_name == 'new':
-            return create_path_func(path_name)
+            return utility.create_path(requested_path)
         elif new_path_name == 'quit':
             break
         else:
-            requested_path = get_path_func(new_path_name)
+            requested_path = requested_path.parent.joinpath(new_path_name)
 
     return
 
