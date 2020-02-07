@@ -9,14 +9,17 @@ from notepack.actions import category
 
 
 def notepack():
+    """Begin the app with the main console
+
+    Includes printing messages and checking for required folders and files.
+    """
     output.print_welcome_message()
     initialize.confirm_required_folders()
     initialize.confirm_required_files()
 
-    # Start of the notepack "terminal".
+    # Start the main notepack console.
     print("What would you like to do?")
     while True:
-        # Validate there is input.
         command = input("> ").split()
         if not command: continue
 
@@ -29,6 +32,10 @@ def notepack():
 
 
 def enter_search_console():
+    """Search console
+    
+    One type of console used to search and open a notepack.
+    """
     print("Search Console")
     while True:
         command = input("search> ").split()
@@ -43,6 +50,7 @@ def enter_search_console():
 
 
 def confirm_category_console(category_name):
+    """Sub-console to confirm existing or create a new category"""
     while not category_name in utility.get_categories():
         print(f"'{category_name}' not found.")
         print("Choose an existing category or create 'new':")
@@ -56,6 +64,7 @@ def confirm_category_console(category_name):
 
 
 def confirm_notepack_console(category_name, notepack):
+    """Sub-console to confirm existing or create a new notepack"""
     while not notepack in utility.get_notepacks(category_name):
         print(f"'{notepack}' NOT found!")
         print("Choose an existing notepack or creaste 'new':")
@@ -68,7 +77,7 @@ def confirm_notepack_console(category_name, notepack):
     return notepack
 
 
-def pick_from_list(items, prompt="notepack> "):
+def pick_from_list(items, prompt="> "):
     while True:
         requested_item = input(prompt)
         if requested_item in items:
