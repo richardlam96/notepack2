@@ -51,16 +51,19 @@ def enter_search_console():
 
 def confirm_category_console(category_name):
     """Sub-console to confirm existing or create a new category"""
-    while not category_name in utility.get_categories():
-        print(f"'{category_name}' not found.")
+    while True:
+        category_path = utility.get_category_path(category_name)
+        print(f"'{category_name}' does not exist.")
         print("Choose an existing category or create 'new':")
         output.print_categories()
         new_category_name = input("category or 'new'> ")
+
         if new_category_name == 'new': 
-            category.create_category(category_name)
-            category_name = new_category_name
+            category.create_category(category_path)
             break 
-    return category_name
+        category_name = new_category_name
+
+    return category_path
 
 
 def confirm_notepack_console(category_name, notepack):
