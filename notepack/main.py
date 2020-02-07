@@ -42,32 +42,19 @@ def enter_search_console():
         if not command: continue
         if command[0] == 'quit': break
 
-        category_path = create_path_console(command[0],
+        category_path = create_path_console(
+                command[0],
                 utility.get_category_path,
                 output.print_categories,
                 category.create_category)
-        # notepack = confirm_notepack_console(category_name, command[1])
+
+        notepack_path = create_path_console(
+            f"{category_path.name}/{command[1]}",
+            utility.get_notepack_path,
+            output.print_notepacks,  # should be simpler, print items in path
+            categroy.create_notepack)
 
         # print(f"Opening {notepack} in {category_name}")
-    return
-
-
-def confirm_category_console(category_name):
-    """Sub-console to confirm existing or create a new category"""
-    while True:
-        category_path = utility.get_category_path(category_name)
-        print(f"'{category_name}' does not exist.")
-        print("Choose an existing category or create 'new':")
-        output.print_categories()
-        new_category_name = input("category or 'new'> ")
-
-        if new_category_name == 'new': 
-            return category.create_category(category_path)
-        elif new_category_name == 'quit':
-            break
-        else:
-            category_name = new_category_name
-
     return
 
 
