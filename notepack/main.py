@@ -46,9 +46,9 @@ def enter_search_console():
                 utility.get_category_path,
                 output.print_categories,
                 category.create_category)
-        notepack = confirm_notepack_console(category_name, command[1])
+        # notepack = confirm_notepack_console(category_name, command[1])
 
-        print(f"Opening {notepack} in {category_name}")
+        # print(f"Opening {notepack} in {category_name}")
     return
 
 
@@ -89,19 +89,19 @@ def create_path_console(path_name, get_path_func,
         get_options_func, 
         create_path_func):
     """General sub-console for searching and creating entities"""
-    while True:
-        requested_path = get_path_func(path_name)
+    requested_path = get_path_func(path_name)
+    while not requested_path.exists():
         print(f"'{requested_path.name}' does not exist.")
         print("Choose existing or create 'new':")
         get_options_func()
         new_path_name = input("existing or 'new'> ")
 
         if new_path_name == 'new':
-            return create_path_func(new_path_name)
+            return create_path_func(path_name)
         elif new_path_name == 'quit':
             break
-        else
-            path_name = new_path_name
+        else:
+            requested_path = get_path_func(new_path_name)
 
     return
 
