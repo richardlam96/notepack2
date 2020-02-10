@@ -98,13 +98,13 @@ def confirm_files_and_directories(entity_path, entity_config):
     For any entities with existing configs, recursively create missing
     files.
     """
-    print(entity_config)
     for directory in entity_config["directories"]:
         directory_path = entity_path.joinpath(directory)
+        print(f"Analyzing {directory_path}")
         if directory_path.exists():
-            print(f"{directory} exists in {entity_path} :D")
+            print(f"{directory} exists in {entity_path}")
         else:
-            print(f"Creating {directory} in {entity_path} :D")
+            print(f"Creating {directory} in {entity_path}")
             directory_path.mkdir()
 
         # If directory is also a listed entity, recursively call this function.
@@ -114,10 +114,11 @@ def confirm_files_and_directories(entity_path, entity_config):
 
     for template_file in entity_config["files"]:
         template_file_path = entity_path.joinpath(template_file)
+        print(f"Analyzing {template_file_path}")
         if template_file_path.exists():
-            print(f"{template_file} exists in {entity_path} :D")
+            print(f"{template_file} exists in {entity_path}")
         else:
-            print(f"Creating {template_file} in {entity_path} :D")
+            print(f"Creating {template_file} in {entity_path}")
             shutil.copy(utility.get_template_path(template_file), entity_path)
     return
 

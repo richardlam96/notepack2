@@ -10,7 +10,7 @@ DEFAULT_FOLDERS = {
 
 DEFAULT_TEMPLATES = {
     "description": DEFAULT_FOLDERS['templates'] + "/description.md",
-    "testflow": DEFAULT_FOLDERS['templates'] + "/testflow.md",
+    "testflows": DEFAULT_FOLDERS['templates'] + "/testflow.md",
     "testing_story": DEFAULT_FOLDERS['templates'] + "/testing_story.md",
     "testing_summary": DEFAULT_FOLDERS['templates'] + "/testing_summary.md",
 }
@@ -27,7 +27,7 @@ NOTEPACK_CONFIG = {
 
 TESTFLOW_CONFIG = {
     "directories": [],
-    "files": ["testflow"],
+    "files": ["testflows"],
 }
 
 ENTITIES = {
