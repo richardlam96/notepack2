@@ -2,6 +2,7 @@
 Output functions
 
 Functions to aid in outputting messages to the console in specified format.
+Console logger with datetime and spacing.
 """
 from datetime import datetime
 

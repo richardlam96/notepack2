@@ -1,5 +1,8 @@
 """
 Utility functions
+
+Functions using the pathlib library and the config variables set in the app.
+These functions will do most of the error handling as well.
 """
 from pathlib import Path
 from notepack import config
@@ -15,15 +18,14 @@ def get_categories():
     return get_path_items(config.DEFAULT_FOLDERS['tickets'])
 
 
-def get_notepack_path(category_name, notepack_name):
+def get_notepack_path(category_path, notepack_name):
     """Build path for a notepack."""
-    category_path = get_category_path(category_name)
-    return Path(f"{category_path}/{notepack_name}")
+    return category_path.joinpath(notepack_name)
 
 
 def get_category_path(category_name):
     """Build path for a category."""
-    return Path(f"{config.DEFAULT_FOLDERS['tickets']}/{category_name}")
+    return get_root_path().joinpath(category_name)
 
 
 def get_root_path():

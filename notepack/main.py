@@ -87,6 +87,14 @@ def confirm_path_console(requested_path):
     return requested_path
 
 
+def confirm_files_and_directories(dest_path, entity_name):
+    """
+    For any entities with existing configs, recursively create missing
+    files.
+    """
+    return
+
+
 def pick_from_list(items, prompt="> "):
     while True:
         requested_item = input(prompt)

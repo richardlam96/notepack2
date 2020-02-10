@@ -3,6 +3,9 @@ Initialize Functions
 
 Initialize any files and folders that are required for the app to work
 properly.
+
+This can probably later be moved to another exiting file. Pointless to have it
+seperate at this point.
 """
 from notepack import config
 from notepack import utility
