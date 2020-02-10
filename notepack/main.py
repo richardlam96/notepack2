@@ -5,7 +5,6 @@ Entry point for the Notepack app.
 from notepack import output
 from notepack import utility
 from notepack import initialize
-from notepack.actions import category
 
 
 def notepack():
