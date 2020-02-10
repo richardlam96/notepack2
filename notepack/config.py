@@ -2,6 +2,8 @@
 Configuration for the notepack app.
 
 This includes all the folders and files that are expected for the app to work.
+Directories would basically be references to entities.
+Files would be references to templates.
 """
 DEFAULT_FOLDERS = {
     "tickets": "./tickets", 
@@ -21,19 +23,19 @@ CATEGORY_CONFIG = {
 }
 
 NOTEPACK_CONFIG = {
-    "directories": ['pictures', 'scripts', 'testflows'],
+    "directories": ['picture', 'script', 'testflow'],
     "files": ["description", "testing_story", "testing_summary"]
 }
 
 TESTFLOW_CONFIG = {
     "directories": [],
-    "files": ["testflows"],
+    "files": ["testflow"],
 }
 
 ENTITIES = {
     "category": CATEGORY_CONFIG, 
     "notepack": NOTEPACK_CONFIG,
-    "testflows": TESTFLOW_CONFIG
+    "testflow": TESTFLOW_CONFIG
 }
 
 

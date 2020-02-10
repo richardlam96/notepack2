@@ -113,7 +113,7 @@ def confirm_files_and_directories(entity_path, entity_config):
                                           config.ENTITIES[directory])
 
     for template_file in entity_config["files"]:
-        template_file_path = entity_path.joinpath(template_file)
+        template_file_path = entity_path.joinpath(template_file + '.md')
         print(f"Analyzing {template_file_path}")
         if template_file_path.exists():
             print(f"{template_file} exists in {entity_path}")
