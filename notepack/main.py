@@ -6,6 +6,7 @@ import shutil
 from notepack import output
 from notepack import utility
 from notepack import initialize
+from notepack import config
 
 
 def notepack():
@@ -100,6 +101,10 @@ def confirm_files_and_directories(entity_path, entity_config):
         else:
             print(f"Creating {directory} in {entity_path} :D")
             directory_path.mkdir()
+
+        # If directory is also a listed entity, recursively call this function.
+        if directory in config.ENTITIES:
+            confirm_files_and_directories(directory_path, directory)
 
     for template_file in entity_config["files"]:
         template_file_path = entity_path.joinpath(template_file)
