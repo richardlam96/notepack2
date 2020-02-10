@@ -108,7 +108,7 @@ def confirm_files_and_directories(entity_path, entity_config):
             directory_path.mkdir()
 
         # If directory is also a listed entity, recursively call this function.
-        if directory in config.ENTITIES.items():
+        if directory in config.ENTITIES.keys():
             confirm_files_and_directories(directory_path,
                                           config.ENTITIES[directory])
 
