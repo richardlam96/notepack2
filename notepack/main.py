@@ -77,7 +77,7 @@ def confirm_path_console(requested_path):
     """General sub-console for searching and creating entities"""
     while not requested_path.exists():
         # List items in the parent folder to re-choose child.
-        print(f"'{requested_path.name}' does not exist.")
+        print(f"'{requested_path}' does not exist.")
         print("Choose existing or create 'new':")
         print('\n'.join(utility.get_path_items(requested_path.parent)))
         new_path_name = input("existing or 'new'> ")
