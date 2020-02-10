@@ -66,6 +66,10 @@ def enter_search_console():
         print(f"Notepack at {notepack_path}")
 
         # Create any missing files and paths for the notepack.
+        confirm_files_and_directories(category_path, 
+                                      config.CATEGORY_CONFIG)
+        confirm_files_and_directories(notepack_path,
+                                      config.NOTEPACK_CONFIG)
     return
 
 
@@ -94,6 +98,7 @@ def confirm_files_and_directories(entity_path, entity_config):
     For any entities with existing configs, recursively create missing
     files.
     """
+    print(entity_config)
     for directory in entity_config["directories"]:
         directory_path = entity_path.joinpath(directory)
         if directory_path.exists():
@@ -103,8 +108,9 @@ def confirm_files_and_directories(entity_path, entity_config):
             directory_path.mkdir()
 
         # If directory is also a listed entity, recursively call this function.
-        if directory in config.ENTITIES:
-            confirm_files_and_directories(directory_path, directory)
+        if directory in config.ENTITIES.items():
+            confirm_files_and_directories(directory_path,
+                                          config.ENTITIES[directory])
 
     for template_file in entity_config["files"]:
         template_file_path = entity_path.joinpath(template_file)

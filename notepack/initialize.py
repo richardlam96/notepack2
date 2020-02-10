@@ -21,7 +21,7 @@ def confirm_required_folders():
 def confirm_required_files():
     """Ask to create required files if needed."""
     print("Checking required templates...")
-    utility.paths_in_dictionary_exists(config.DEFAULT_FILES)
+    utility.paths_in_dictionary_exists(config.DEFAULT_TEMPLATES)
     return
 
 
