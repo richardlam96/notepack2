@@ -15,19 +15,19 @@ DEFAULT_TEMPLATES = {
     "testing_summary": DEFAULT_FOLDERS['templates'] + "/testing_summary.md",
 }
 
-ENTITIES = ['category', 'testflows']
+ENTITIES = ['category', 'notepack', 'testflows']
 
 CATEGORY_CONFIG = {
-    "directores":  [],
+    "directories":  [],
     "files": "description.md"
 }
 
 NOTEPACK_CONFIG = {
     "directories": ['pictures', 'scripts', 'testflows'],
-    "files": ["description.md", "testing_story.md", "test_summary.md"]
+    "files": ["description", "testing_story", "testing_summary"]
 }
 
 TESTFLOW_CONFIG = {
     "directories": [],
-    "files": ["testflow_mk0.md"],
+    "files": ["testflow"],
 }

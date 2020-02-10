@@ -32,6 +32,10 @@ def get_root_path():
     return Path(f"{config.DEFAULT_FOLDERS['tickets']}")
 
 
+def get_template_path(name):
+    return Path(f"{config.DEFAULT_TEMPLATES[name]}")
+
+
 def paths_in_dictionary_exists(dictionary):
     """Check if all paths in a dictionary exist."""
     for name, path in dictionary.items():
@@ -51,7 +55,6 @@ def get_path_items(path):
     """Get items in a given path in an array."""
     posix_path = Path(path)
     return [path.name for path in posix_path.glob('*')]
-
 
 
 def create_path(path):

@@ -2,6 +2,7 @@
 Entry point for the Notepack app.
 
 """
+import shutil
 from notepack import output
 from notepack import utility
 from notepack import initialize
@@ -87,11 +88,26 @@ def confirm_path_console(requested_path):
     return requested_path
 
 
-def confirm_files_and_directories(dest_path, entity_name):
+def confirm_files_and_directories(entity_path, entity_config):
     """
     For any entities with existing configs, recursively create missing
     files.
     """
+    for directory in entity_config["directories"]:
+        directory_path = entity_path.joinpath(directory)
+        if directory_path.exists():
+            print(f"{directory} exists in {entity_path} :D")
+        else:
+            print(f"Creating {directory} in {entity_path} :D")
+            directory_path.mkdir()
+
+    for template_file in entity_config["files"]:
+        template_file_path = entity_path.joinpath(template_file)
+        if template_file_path.exists():
+            print(f"{template_file} exists in {entity_path} :D")
+        else:
+            print(f"Creating {template_file} in {entity_path} :D")
+            shutil.copy(utility.get_template_path(template_file), entity_path)
     return
 
 
