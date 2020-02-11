@@ -3,10 +3,10 @@ Entry point for the Notepack app.
 
 """
 import shutil
-from notepack import output
 from notepack import utility
 from notepack import initialize
 from notepack import config
+from notepack import logger
 
 
 def notepack():
@@ -15,14 +15,13 @@ def notepack():
     Includes printing messages and checking for required folders and files.
     """
     try:
-        output.print_welcome_message()
+        logger.print_welcome_message()
         initialize.confirm_required_folders()
         initialize.confirm_required_files()
 
         # Start the main notepack console.
-        print("What would you like to do?")
         while True:
-            command = input("> ").split()
+            command = logger.prompt("What would you like to do?").split()
             if not command: continue
 
             action = command[0]
@@ -31,7 +30,7 @@ def notepack():
 
             continue
     except KeyboardInterrupt:
-        print("Forced exit with keyboard interrupt.")
+        logger.log("Forced exit with keyboard interrupt.")
 
     return
 
@@ -41,9 +40,9 @@ def enter_search_console():
     
     One type of console used to search and open a notepack.
     """
-    print("Search Console")
+    logger.log("SEARCH MODE")
     while True:
-        command = input("search> ").split()
+        command = logger.prompt("search", 1).split()
         if not command: continue
         if command[0] == 'quit': break
         
@@ -52,7 +51,7 @@ def enter_search_console():
             category_name = command[0]
             notepack_name = command[1]
         except IndexError:
-            print(f"Improper input. Try again.")
+            logger.log(f"Improper input. Try again.", 1)
             continue
 
         # Create the Path objects for each.
@@ -62,8 +61,6 @@ def enter_search_console():
         # Confirm if Paths are new and need to be created.
         category_path = confirm_path_console(category_path)
         notepack_path = confirm_path_console(notepack_path)
-        print(f"Category at {category_path}")
-        print(f"Notepack at {notepack_path}")
 
         # Create any missing files and paths for the notepack.
         confirm_files_and_directories(category_path, 
@@ -77,10 +74,10 @@ def confirm_path_console(requested_path):
     """General sub-console for searching and creating entities"""
     while not requested_path.exists():
         # List items in the parent folder to re-choose child.
-        print(f"'{requested_path}' does not exist.")
-        print("Choose existing or create 'new':")
-        print('\n'.join(utility.get_path_items(requested_path.parent)))
-        new_path_name = input("existing or 'new'> ")
+        logger.log(f"'{requested_path}' does not exist.", 2)
+        logger.log("Choose existing or create 'new':", 2)
+        logger.log('\n'.join(utility.get_path_items(requested_path.parent)), 2)
+        new_path_name = logger.prompt("existing or 'new'", 2)
 
         if new_path_name == 'new':
             utility.create_path(requested_path)
@@ -100,11 +97,11 @@ def confirm_files_and_directories(entity_path, entity_config):
     """
     for directory in entity_config["directories"]:
         directory_path = entity_path.joinpath(directory)
-        print(f"Analyzing {directory_path}")
+        logger.log(f"Analyzing {directory_path}", 2)
         if directory_path.exists():
-            print(f"{directory} exists in {entity_path}")
+            logger.log(f"{directory} exists in {entity_path}", 2)
         else:
-            print(f"Creating {directory} in {entity_path}")
+            logger.log(f"Creating {directory} in {entity_path}", 2)
             directory_path.mkdir()
 
         # If directory is also a listed entity, recursively call this function.
@@ -114,24 +111,12 @@ def confirm_files_and_directories(entity_path, entity_config):
 
     for template_file in entity_config["files"]:
         template_file_path = entity_path.joinpath(template_file)
-        print(f"Analyzing {template_file_path}")
+        logger.log(f"Analyzing {template_file_path}", 2)
         if template_file_path.exists():
-            print(f"{template_file} exists in {entity_path}")
+            logger.log(f"{template_file} exists in {entity_path}", 2)
         else:
-            print(f"Creating {template_file} in {entity_path}")
+            logger.log(f"Creating {template_file} in {entity_path}", 2)
             shutil.copy(utility.get_template_path(template_file), entity_path)
     return
-
-
-def pick_from_list(items, prompt="> "):
-    while True:
-        requested_item = input(prompt)
-        if requested_item in items:
-            break
-        else:
-            print(f"'{requested_item}' is not available.")
-            print(f"Try one of these: {items}")
-
-    return requested_item
 
 
