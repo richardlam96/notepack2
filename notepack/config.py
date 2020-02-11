@@ -11,25 +11,25 @@ DEFAULT_FOLDERS = {
 }
 
 DEFAULT_TEMPLATES = {
-    "description": DEFAULT_FOLDERS['templates'] + "/description.md",
-    "testflow": DEFAULT_FOLDERS['templates'] + "/testflow.md",
-    "testing_story": DEFAULT_FOLDERS['templates'] + "/testing_story.md",
-    "testing_summary": DEFAULT_FOLDERS['templates'] + "/testing_summary.md",
+    "description.md": DEFAULT_FOLDERS['templates'] + "/description.md",
+    "testflow.md": DEFAULT_FOLDERS['templates'] + "/testflow.md",
+    "testing_story.md": DEFAULT_FOLDERS['templates'] + "/testing_story.md",
+    "testing_summary.md": DEFAULT_FOLDERS['templates'] + "/testing_summary.md",
 }
 
 CATEGORY_CONFIG = {
     "directories":  [],
-    "files": ["description"]
+    "files": ["description.md"]
 }
 
 NOTEPACK_CONFIG = {
     "directories": ['picture', 'script', 'testflow'],
-    "files": ["description", "testing_story", "testing_summary"]
+    "files": ["description.md", "testing_story.md", "testing_summary.md"]
 }
 
 TESTFLOW_CONFIG = {
     "directories": [],
-    "files": ["testflow"],
+    "files": ["testflow.md"],
 }
 
 ENTITIES = {
