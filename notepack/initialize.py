@@ -9,18 +9,19 @@ seperate at this point.
 """
 from notepack import config
 from notepack import utility
+from notepack import logger
 
 
 def confirm_required_folders():
     """Create top-level folders if needed."""
-    print("Checking required folders...")
+    logger.log("Checking required folders...")
     utility.paths_in_dictionary_exists(config.DEFAULT_FOLDERS)
     return
 
 
 def confirm_required_files():
     """Ask to create required files if needed."""
-    print("Checking required templates...")
+    logger.log("Checking required templates...")
     utility.paths_in_dictionary_exists(config.DEFAULT_TEMPLATES)
     return
 

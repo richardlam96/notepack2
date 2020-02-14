@@ -2,10 +2,10 @@
 Utility functions
 
 Functions using the pathlib library and the config variables set in the app.
-These functions will do most of the error handling as well.
 """
 from pathlib import Path
 from notepack import config
+from notepack import logger
 
 
 def get_notepacks(category):
@@ -40,9 +40,9 @@ def paths_in_dictionary_exists(dictionary):
     """Check if all paths in a dictionary exist."""
     for name, path in dictionary.items():
         if path_exists(path):
-            print(f"\t{name} path exists.")
+            logger.log(f"{name} path exists.", 1)
         else:
-            print(f"\t{name} path MISSING.")
+            logger.log(f"{name} path MISSING.", 1)
     return
 
 

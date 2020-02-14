@@ -30,7 +30,7 @@ def notepack():
 
             continue
     except KeyboardInterrupt:
-        logger.log("Forced exit with keyboard interrupt.")
+        logger.output("Forced exit with keyboard interrupt.")
 
     return
 
@@ -40,7 +40,7 @@ def enter_search_console():
     
     One type of console used to search and open a notepack.
     """
-    logger.log("SEARCH MODE")
+    logger.output("SEARCH MODE")
     while True:
         command = logger.prompt("search", 1).split()
         if not command: continue
@@ -51,7 +51,7 @@ def enter_search_console():
             category_name = command[0]
             notepack_name = command[1]
         except IndexError:
-            logger.log(f"Improper input. Try again.", 1)
+            logger.output(f"Improper input. Try again.", 1)
             continue
 
         # Create the Path objects for each.
@@ -71,12 +71,16 @@ def enter_search_console():
 
 
 def confirm_path_console(requested_path):
-    """General sub-console for searching and creating entities"""
+    """
+    General sub-console for searching and creating entities
+
+    Used for validating paths, returning one that definitely exists.
+    """
     while not requested_path.exists():
         # List items in the parent folder to re-choose child.
-        logger.log(f"'{requested_path}' does not exist.", 2)
-        logger.log("Choose existing or create 'new':", 2)
-        logger.log('\n'.join(utility.get_path_items(requested_path.parent)), 2)
+        logger.output(f"'{requested_path}' does not exist.", 2)
+        logger.output("Choose existing or create 'new':", 2)
+        logger.output('\n'.join(utility.get_path_items(requested_path.parent)), 2)
         new_path_name = logger.prompt("existing or 'new'", 2)
 
         if new_path_name == 'new':
@@ -97,11 +101,10 @@ def confirm_files_and_directories(entity_path, entity_config):
     """
     for directory in entity_config["directories"]:
         directory_path = entity_path.joinpath(directory)
-        logger.log(f"Analyzing {directory_path}", 2)
         if directory_path.exists():
-            logger.log(f"{directory} exists in {entity_path}", 2)
+            logger.output(f"{directory} exists in {entity_path}", 2)
         else:
-            logger.log(f"Creating {directory} in {entity_path}", 2)
+            logger.output(f"Creating {directory} in {entity_path}", 2)
             directory_path.mkdir()
 
         # If directory is also a listed entity, recursively call this function.
@@ -111,11 +114,10 @@ def confirm_files_and_directories(entity_path, entity_config):
 
     for template_file in entity_config["files"]:
         template_file_path = entity_path.joinpath(template_file)
-        logger.log(f"Analyzing {template_file_path}", 2)
         if template_file_path.exists():
-            logger.log(f"{template_file} exists in {entity_path}", 2)
+            logger.output(f"{template_file} exists in {entity_path}", 2)
         else:
-            logger.log(f"Creating {template_file} in {entity_path}", 2)
+            logger.output(f"Creating {template_file} in {entity_path}", 2)
             shutil.copy(utility.get_template_path(template_file), entity_path)
     return
 

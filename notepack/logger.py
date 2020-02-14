@@ -6,6 +6,7 @@ from datetime import datetime
 
 def print_welcome_message():
     print("Welcome to Notepack App 2.0")
+    return
 
 
 def log(message, depth=0, character='.'):
@@ -16,6 +17,13 @@ def log(message, depth=0, character='.'):
 
 
 def prompt(prompt, depth=0, character='.'):
-    time_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     spacing = character * depth * 2
-    return input(f"[{time_now}] {spacing}{prompt}> ")
+    return input(f"{spacing}{prompt}> ")
+
+
+def output(message, depth=0, character='.'):
+    spacing = character * depth * 2
+    print(f"{spacing}{message}")
+    return
+
+
