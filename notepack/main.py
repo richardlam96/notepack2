@@ -3,7 +3,7 @@ Entry point for the Notepack app.
 
 """
 import shutil
-from notepack import utility
+from notepack.utility import utility
 from notepack import initialize
 from notepack import config
 from notepack import logger

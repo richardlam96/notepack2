@@ -8,7 +8,7 @@ This can probably later be moved to another exiting file. Pointless to have it
 seperate at this point.
 """
 from notepack import config
-from notepack import utility
+from notepack.utility import utility
 from notepack import logger
 
 
