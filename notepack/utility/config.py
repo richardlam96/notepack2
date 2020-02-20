@@ -6,16 +6,6 @@ from pathlib import Path
 from notepack import config
 
 
-def get_directories(entity_key):
-    """Get a list of all directory paths for an Entity."""
-    return
-
-
-def get_files(entity_key):
-    """Get a list of all file paths for an Entity."""
-    return
-
-
 def get_directory_names(entity_key):
     """Get the list of directory names from an Entity's config."""
     return config.ENTITIES[entity_key]["directories"]

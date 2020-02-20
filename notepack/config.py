@@ -19,7 +19,7 @@ DEFAULT_TEMPLATES = {
 
 CATEGORY_CONFIG = {
     "directories":  [],
-    "files": ["description.md"]
+    "files": ["description.md"],
 }
 
 NOTEPACK_CONFIG = {
@@ -35,7 +35,7 @@ TESTFLOW_CONFIG = {
 ENTITIES = {
     "category": CATEGORY_CONFIG, 
     "notepack": NOTEPACK_CONFIG,
-    "testflow": TESTFLOW_CONFIG
+    "testflow": TESTFLOW_CONFIG,
 }
 
 
