@@ -6,29 +6,38 @@ from pathlib import Path
 from notepack import config
 
 
-def get_directory_names(entity_key):
+def read_dir_names(entity_key):
     """Get the list of directory names from an Entity's config."""
     return config.ENTITIES[entity_key]["directories"]
 
 
-def get_file_names(entity_key):
+def read_file_names(entity_key):
     """Get the list of file names from an Entity's config."""
     return config.ENTITIES[entity_key]["files"]
 
 
-def get_config(entity_key):
+def read_entity_config(entity_key):
     """Get the config object for an Entity."""
     return config.ENTITIES[entity_key]
 
 
-def get_entities():
+def read_entities():
     """Return a list of Entities in the config."""
     return config.ENTITIES.keys()
 
 
-def get_entity(index):
+def read_entity(index):
     """Get nth Entity."""
     return config.ENTITIES.keys()[index]
+
+
+def read_root_path():
+    """
+    Get path string of where all app-created folders and files are stored.
+    """
+    return config.DEFAULT_FOLDERS['tickets']
+
+
 
 
 

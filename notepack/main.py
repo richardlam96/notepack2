@@ -32,8 +32,6 @@ def notepack():
     except KeyboardInterrupt:
         logger.output("Forced exit with keyboard interrupt.")
 
-    return
-
 
 def enter_search_console():
     """Search console
@@ -67,7 +65,6 @@ def enter_search_console():
                                       config.CATEGORY_CONFIG)
         confirm_files_and_directories(notepack_path,
                                       config.NOTEPACK_CONFIG)
-    return
 
 
 def confirm_path_console(requested_path):
