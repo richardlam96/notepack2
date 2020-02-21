@@ -2,12 +2,13 @@
 Utility functions to manage (create and confirm) Paths.
 """
 import shutil
+from pathlib import Path
 from . import config
 
 
 def get_root_path():
     """Get path of where all app-created folders and files are stored."""
-    return Path(config.get_root())
+    return Path(config.read_root_path())
 
 
 def get_path_items(path):
