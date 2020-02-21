@@ -25,7 +25,6 @@ def create_dir_in_path(root_path, directory_name):
 
 def copy_file_to_path(root_path, filename):
     """Copy the given file's template to the root path given."""
-    shutil.copy(config.read_template_path(filename), Path(root_path))
-    return
+    return shutil.copy(config.read_template_path(filename), Path(root_path))
 
 
