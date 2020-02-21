@@ -6,6 +6,11 @@ from pathlib import Path
 from notepack import config
 
 
+def read_template_path(filename):
+    """Get the configured path where a template is."""
+    return config.DEFAULT_TEMPLATES[filename]
+
+
 def read_dir_names(entity_key):
     """Get the list of directory names from an Entity's config."""
     return config.ENTITIES[entity_key]["directories"]
