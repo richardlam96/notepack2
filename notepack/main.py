@@ -4,6 +4,7 @@ Entry point for the Notepack app.
 """
 import shutil
 from notepack.utility import utility
+from notepack.utility import path as config_path
 from notepack import initialize
 from notepack import config
 from notepack import logger
@@ -53,7 +54,7 @@ def enter_search_console():
             continue
 
         # Create the Path objects for each.
-        category_path = utility.get_root_path().joinpath(category_name)
+        category_path = config_path.get_root_path().joinpath(category_name)
         notepack_path = category_path.joinpath(notepack_name)
 
         # Confirm if Paths are new and need to be created.
@@ -81,7 +82,7 @@ def confirm_path_console(requested_path):
         new_path_name = logger.prompt("existing or 'new'", 2)
 
         if new_path_name == 'new':
-            utility.create_path(requested_path)
+            requested_path.mkdir()
             break
         elif new_path_name == 'quit':
             break

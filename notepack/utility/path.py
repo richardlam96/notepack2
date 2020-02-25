@@ -19,7 +19,7 @@ def list_items_in_path(path):
 
 def create_dir_in_path(root_path, directory_name):
     """Create a new directory in the root path given."""
-    if !root_path: root_path = config.read_root_path()
+    if not root_path: root_path = config.read_root_path()
     new_dir_path = Path(root_path).joinpath(directory_name)
     new_dir_path.mkdir()
     return new_dir_path
@@ -27,14 +27,14 @@ def create_dir_in_path(root_path, directory_name):
 
 def create_template_copy(root_path, filename):
     """Copy the given file's template to the root path given."""
-    if !root_path: root_path = config.read_root_path()
+    if not root_path: root_path = config.read_root_path()
     return shutil.copy(config.read_template_path(filename), Path(root_path))
 
 
 def find_item_in_dir(itemname, dir_path):
     """Find and return Path of item if it exists, otherwise False."""
     item_path = dir_path.joinpath(itemname)
-    if !item_path.exists(): return False
+    if not item_path.exists(): return False
     return item_path
 
 
