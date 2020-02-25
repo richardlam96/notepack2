@@ -36,16 +36,6 @@ def get_template_path(name):
     return Path(f"{config.DEFAULT_TEMPLATES[name]}")
 
 
-def paths_in_dictionary_exists(dictionary):
-    """Check if all paths in a dictionary exist."""
-    for name, path in dictionary.items():
-        if path_exists(path):
-            logger.log(f"{name} path exists.", 1)
-        else:
-            logger.log(f"{name} path MISSING.", 1)
-    return
-
-
 def path_exists(path):
     """Check if the given path exists."""
     return Path(path).exists()
