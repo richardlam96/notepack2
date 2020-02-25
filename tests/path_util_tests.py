@@ -14,16 +14,6 @@ class PathUtilTests(unittest.TestCase):
         self.test_file_path = self.root_dir.joinpath(self.test_filename)
         self.cleanUpTestResults()
 
-    def test_create_dir_in_path(self):
-        new_dir = path_util.create_dir_in_path(self.root_dir, 
-                                               self.test_dirname)
-        self.assertEqual(new_dir, self.test_dir_path)
-
-    def test_create_file_in_path(self):
-        new_file = Path(path_util.create_template_copy(self.root_dir, 
-                                                  self.test_filename))
-        self.assertEqual(new_file, self.test_file_path)
-
     def tearDown(self):
         self.cleanUpTestResults()
 
