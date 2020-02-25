@@ -11,7 +11,7 @@ def get_root_path():
     return Path(config.read_root_path())
 
 
-def get_path_items(path):
+def list_items_in_path(path):
     """Get items in a given path in an array."""
     posix_path = Path(path)
     return [path.name for path in posix_path.glob('*')]
@@ -34,7 +34,7 @@ def create_template_copy(root_path, filename):
 def find_item_in_dir(itemname, dir_path):
     """Find and return Path of item if it exists, otherwise False."""
     item_path = dir_path.joinpath(itemname)
-    if !item_path: return False
+    if !item_path.exists(): return False
     return item_path
 
 
