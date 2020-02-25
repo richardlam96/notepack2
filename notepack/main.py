@@ -3,6 +3,7 @@ Entry point for the Notepack app.
 
 """
 import shutil
+from pathlib import Path
 from notepack import initialize
 from notepack import logger
 from notepack import config
@@ -53,7 +54,8 @@ def enter_search_console():
             continue
 
         # Create the Path objects for each.
-        category_path = config_util.read_root_path().joinpath(category_name)
+        root_path = Path(config_util.read_root_path())
+        category_path = root_path.joinpath(category_name)
         notepack_path = category_path.joinpath(notepack_name)
 
         # Confirm if Paths are new and need to be created.

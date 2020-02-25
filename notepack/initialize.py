@@ -7,6 +7,7 @@ properly.
 This can probably later be moved to another exiting file. Pointless to have it
 seperate at this point.
 """
+from pathlib import Path
 from notepack import config
 from notepack import logger
 
@@ -27,8 +28,8 @@ def confirm_required_files():
 
 def paths_in_dictionary_exists(dictionary):
     """Check if all paths in a dictionary exist."""
-    for name, path in dictionary.items():
-        if path_exists(path):
+    for name, item_path in dictionary.items():
+        if Path(item_path).exists():
             logger.log(f"{name} path exists.", 1)
         else:
             logger.log(f"{name} path MISSING.", 1)
