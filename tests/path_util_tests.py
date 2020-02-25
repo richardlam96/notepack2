@@ -2,7 +2,6 @@ import os
 import unittest
 from pathlib import Path
 from notepack import config
-from notepack.utility import path as path_util
 
 
 class PathUtilTests(unittest.TestCase):

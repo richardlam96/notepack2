@@ -3,11 +3,10 @@ Entry point for the Notepack app.
 
 """
 import shutil
-from notepack.utility import utility
-from notepack.utility import path as config_path
 from notepack import initialize
-from notepack import config
 from notepack import logger
+from notepack import config
+from notepack import config_util
 
 
 def notepack():
@@ -54,7 +53,7 @@ def enter_search_console():
             continue
 
         # Create the Path objects for each.
-        category_path = config_path.get_root_path().joinpath(category_name)
+        category_path = config_util.read_root_path().joinpath(category_name)
         notepack_path = category_path.joinpath(notepack_name)
 
         # Confirm if Paths are new and need to be created.
@@ -78,7 +77,7 @@ def confirm_path_console(requested_path):
         # List items in the parent folder to re-choose child.
         logger.output(f"'{requested_path}' does not exist.", 2)
         logger.output("Choose existing or create 'new':", 2)
-        logger.output('\n'.join(utility.get_path_items(requested_path.parent)), 2)
+        logger.output('\n'.join(get_path_items(requested_path.parent)), 2)
         new_path_name = logger.prompt("existing or 'new'", 2)
 
         if new_path_name == 'new':
@@ -116,7 +115,14 @@ def confirm_files_and_directories(entity_path, entity_config):
             logger.output(f"{template_file} exists in {entity_path}", 2)
         else:
             logger.output(f"Creating {template_file} in {entity_path}", 2)
-            shutil.copy(utility.get_template_path(template_file), entity_path)
+            shutil.copy(config_util.read_template_path(template_file), entity_path)
     return
+
+
+def get_path_items(path):
+    """Get items in a given path in an array."""
+    posix_path = Path(path)
+    return [path.name for path in posix_path.glob('*')]
+
 
 

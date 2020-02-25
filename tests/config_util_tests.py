@@ -1,6 +1,6 @@
 import unittest
 from notepack import config
-from notepack.utility import config as config_util
+from notepack import config_util
 
 
 class ConfigUtilTests(unittest.TestCase):
