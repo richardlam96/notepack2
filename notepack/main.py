@@ -41,7 +41,7 @@ def enter_search_console():
     """
     logger.output("SEARCH MODE")
     while True:
-        command = logger.prompt("search", 1).split()
+        command = logger.prompt("search").split()
         if not command: continue
         if command[0] == 'quit': break
         
@@ -50,7 +50,7 @@ def enter_search_console():
             category_name = command[0]
             notepack_name = command[1]
         except IndexError:
-            logger.output(f"Improper input. Try again.", 1)
+            logger.output(f"Improper input. Try again.")
             continue
 
         # Create the Path objects for each.
@@ -63,10 +63,8 @@ def enter_search_console():
         notepack_path = confirm_path_console(notepack_path)
 
         # Create any missing files and paths for the notepack.
-        confirm_files_and_directories(category_path, 
-                                      config.CATEGORY_CONFIG)
-        confirm_files_and_directories(notepack_path,
-                                      config.NOTEPACK_CONFIG)
+        confirm_files_and_directories(category_path, 'category')
+        confirm_files_and_directories(notepack_path, 'notepack')
 
 
 def confirm_path_console(requested_path):
@@ -77,10 +75,10 @@ def confirm_path_console(requested_path):
     """
     while not requested_path.exists():
         # List items in the parent folder to re-choose child.
-        logger.output(f"'{requested_path}' does not exist.", 2)
-        logger.output("Choose existing or create 'new':", 2)
-        logger.output('\n'.join(get_path_items(requested_path.parent)), 2)
-        new_path_name = logger.prompt("existing or 'new'", 2)
+        logger.output(f"'{requested_path}' does not exist.")
+        logger.output("Choose existing or create 'new':")
+        logger.output('\n'.join(get_path_items(requested_path.parent)))
+        new_path_name = logger.prompt("existing or 'new'")
 
         if new_path_name == 'new':
             requested_path.mkdir()
@@ -93,30 +91,29 @@ def confirm_path_console(requested_path):
     return requested_path
 
 
-def confirm_files_and_directories(entity_path, entity_config):
+def confirm_files_and_directories(entity_path, entity_name):
     """
     For any entities with existing configs, recursively create missing
     files.
     """
-    for directory in entity_config["directories"]:
+    for directory in config_util.read_dir_names(entity_name):
         directory_path = entity_path.joinpath(directory)
         if directory_path.exists():
-            logger.output(f"{directory} exists in {entity_path}", 2)
+            logger.output(f"{directory} exists in {entity_path}")
         else:
-            logger.output(f"Creating {directory} in {entity_path}", 2)
+            logger.output(f"Creating {directory} in {entity_path}")
             directory_path.mkdir()
 
         # If directory is also a listed entity, recursively call this function.
         if directory in config.ENTITIES.keys():
-            confirm_files_and_directories(directory_path,
-                                          config.ENTITIES[directory])
+            confirm_files_and_directories(directory_path, directory)
 
-    for template_file in entity_config["files"]:
+    for template_file in config_util.read_file_names(entity_name):
         template_file_path = entity_path.joinpath(template_file)
         if template_file_path.exists():
-            logger.output(f"{template_file} exists in {entity_path}", 2)
+            logger.output(f"{template_file} exists in {entity_path}")
         else:
-            logger.output(f"Creating {template_file} in {entity_path}", 2)
+            logger.output(f"Creating {template_file} in {entity_path}")
             shutil.copy(config_util.read_template_path(template_file), entity_path)
     return
 
