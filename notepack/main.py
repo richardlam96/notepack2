@@ -63,8 +63,8 @@ def enter_search_console():
         notepack_path = confirm_path_console(notepack_path)
 
         # Create any missing files and paths for the notepack.
-        confirm_files_and_directories(category_path, 'category')
-        confirm_files_and_directories(notepack_path, 'notepack')
+        create_missing_items(category_path, 'category')
+        create_missing_items(notepack_path, 'notepack')
 
 
 def confirm_path_console(requested_path):
@@ -77,7 +77,7 @@ def confirm_path_console(requested_path):
         # List items in the parent folder to re-choose child.
         logger.output(f"'{requested_path}' does not exist.")
         logger.output("Choose existing or create 'new':")
-        logger.output('\n'.join(get_path_items(requested_path.parent)))
+        logger.output('\n'.join([path.name for path in posix_path.glob('*')]))
         new_path_name = logger.prompt("existing or 'new'")
 
         if new_path_name == 'new':
@@ -91,37 +91,27 @@ def confirm_path_console(requested_path):
     return requested_path
 
 
-def confirm_files_and_directories(entity_path, entity_name):
+def create_missing_items(entity_path, entity_name):
     """
     For any entities with existing configs, recursively create missing
     files.
     """
     for directory in config_util.read_dir_names(entity_name):
         directory_path = entity_path.joinpath(directory)
-        if directory_path.exists():
-            logger.output(f"{directory} exists in {entity_path}")
-        else:
-            logger.output(f"Creating {directory} in {entity_path}")
+        if not directory_path.exists():
+            logger.log(f"Creating missing '{directory}' in {entity_path}")
             directory_path.mkdir()
 
         # If directory is also a listed entity, recursively call this function.
         if directory in config.ENTITIES.keys():
-            confirm_files_and_directories(directory_path, directory)
+            create_missing_items(directory_path, directory)
 
     for template_file in config_util.read_file_names(entity_name):
         template_file_path = entity_path.joinpath(template_file)
-        if template_file_path.exists():
-            logger.output(f"{template_file} exists in {entity_path}")
-        else:
-            logger.output(f"Creating {template_file} in {entity_path}")
-            shutil.copy(config_util.read_template_path(template_file), entity_path)
+        if not template_file_path.exists():
+            logger.log(f"Creating missing '{template_file}' in {entity_path}")
+            shutil.copy(config_util.read_template_path(template_file), 
+                        entity_path)
     return
-
-
-def get_path_items(path):
-    """Get items in a given path in an array."""
-    posix_path = Path(path)
-    return [path.name for path in posix_path.glob('*')]
-
 
 
